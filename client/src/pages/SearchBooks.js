@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useMutation } from '@apollo/client';
+import { SAVE_BOOK } from '../utils/mutations'
 import {
   Container,
   Col,
@@ -9,7 +11,9 @@ import {
 } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { saveBook, searchGoogleBooks } from '../utils/API';
+import { 
+  // saveBook, 
+  searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = () => {
@@ -59,6 +63,9 @@ const SearchBooks = () => {
     }
   };
 
+  // Apollo useMutation hook to execute the save_book mutation
+  const [saveBook] = useMutation(SAVE_BOOK)
+
   // create function to handle saving a book to our database
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
@@ -72,9 +79,9 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
+      const response = await saveBook(bookToSave);
 
-      if (!response.ok) {
+      if (!response.data) {
         throw new Error('something went wrong!');
       }
 
