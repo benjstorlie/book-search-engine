@@ -14,12 +14,12 @@ const SignupForm = () => {
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
+  const [createUser, {error, data}] = useMutation(ADD_USER);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
-
-  const [createUser] = useMutation(ADD_USER);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -32,8 +32,8 @@ const SignupForm = () => {
     }
     
     try {
-      const {data} = await createUser( {
-        variables: userFormData
+      const { data } = await createUser( {
+        variables: {...userFormData}
       });
 
       if (!data) {
@@ -49,6 +49,7 @@ const SignupForm = () => {
       console.error(err);
       setShowAlert(true);
     }
+    if (error) {setShowAlert(true)}
 
     setUserFormData({
       username: '',
@@ -63,7 +64,12 @@ const SignupForm = () => {
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your signup!
+          Something went wrong with your signup! <br />
+          {error && (error.message)}
+        </Alert>
+        <Alert dismissible show={!!data} variant="success">
+        Success! You may now head{' '}
+                <Link to="/">back to the homepage.</Link>
         </Alert>
 
         <Form.Group className='mb-3'>

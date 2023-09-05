@@ -25,6 +25,9 @@ const SearchBooks = () => {
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
+  // Apollo useMutation hook to execute the save_book mutation
+  const [saveBook, { error, data }] = useMutation(SAVE_BOOK)
+
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
@@ -63,8 +66,6 @@ const SearchBooks = () => {
     }
   };
 
-  // Apollo useMutation hook to execute the save_book mutation
-  const [saveBook] = useMutation(SAVE_BOOK)
 
   // create function to handle saving a book to our database
   const handleSaveBook = async (bookId) => {
@@ -79,9 +80,13 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave);
+      const {data} = await saveBook({
+        variables: {
+          bookId
+        }
+      });
 
-      if (!response.data) {
+      if (!data) {
         throw new Error('something went wrong!');
       }
 
