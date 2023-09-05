@@ -79,11 +79,10 @@ const SearchBooks = () => {
       return false;
     }
 
+
     try {
       const {data} = await saveBook({
-        variables: {
-          bookId
-        }
+        variables:{ book: bookToSave }
       });
 
       if (!data) {
@@ -148,11 +147,14 @@ const SearchBooks = () => {
                         className='btn-block btn-info'
                         onClick={() => handleSaveBook(book.bookId)}>
                         {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                          ? 'This book has already been saved!'
+                          ? 'This book has been saved!'
                           : 'Save this Book!'}
                       </Button>
                     )}
                   </Card.Body>
+                    {/* <Alert dismissible variant="success" show={!!data}>
+                    Success! You may now head{' '}
+                    </Alert> */}
                 </Card>
               </Col>
             );

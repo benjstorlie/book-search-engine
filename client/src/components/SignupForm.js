@@ -40,11 +40,10 @@ const SignupForm = () => {
       if (!data) {
         throw new Error('something went wrong!');
       }
-      console.log(data.addUser)
+
 
       const { token, user } = data.addUser
-      console.log(user);
-      console.log(token)
+
       Auth.login(token);
     } catch (err) {
       console.error(err);
