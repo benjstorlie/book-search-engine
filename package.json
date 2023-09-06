@@ -1,7 +1,7 @@
 {
   "name": "googlebooks-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Book Search Engine",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -9,8 +9,12 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benjstorlie/book-search-engine.git"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Ben Storlie <benjstorlie@gmail.com> (https://benjstorlie.github.io/)",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.3.0"
