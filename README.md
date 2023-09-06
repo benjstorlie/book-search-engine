@@ -8,7 +8,7 @@
 1. [Description](#description)
 2. [User Story](#user-story)
 3. [Acceptance Criteria](#acceptance-criteria)
-3. [Screenshots](#screenshots)
+3. [Screenshot](#screenshot)
 4. [Comments](#comments)
 5. [Acknowledgements](#acknowledgements)
 
